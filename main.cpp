@@ -27,7 +27,17 @@ class Ball {
         y += speed_y;
 
         if (y + radius >= GetScreenHeight() || y - radius <= 0) {
-            speed_y *= -1;
+            if (speed_y <= 20) {
+                if (speed_y * -1 > 0) {
+                    speed_y *= -1;
+                    speed_y += 1;
+                } else {
+                    speed_y *= -1;
+                    speed_y -= 1;
+                }
+            } else {
+                speed_y *= -1;
+            }
         }
         if (x + radius >= GetScreenWidth()) {
             cpuScore++;
@@ -44,6 +54,8 @@ class Ball {
         y = GetScreenHeight() / 2;
 
         int speed_choices[2] = {-1, 1};
+        speed_x = 4;
+        speed_y = 4;
         speed_x *= speed_choices[GetRandomValue(0, 1)];
         speed_y *= speed_choices[GetRandomValue(0, 1)];
     }
@@ -109,20 +121,20 @@ int main() {
     ball.radius = 20;
     ball.x = screenWidth / 2;
     ball.y = screenHeight / 2;
-    ball.speed_x = 7;
-    ball.speed_y = 7;
+    ball.speed_x = 4;
+    ball.speed_y = 4;
 
     player.width = 25;
     player.height = 120;
     player.x = screenWidth - player.width - 10;
     player.y = screenHeight / 2 - player.height / 2;
-    player.speed = 6;
+    player.speed = 7;
 
     cpu.height = 120;
     cpu.width = 25;
     cpu.x = 10;
     cpu.y = screenHeight / 2 - cpu.height / 2;
-    cpu.speed = 6;
+    cpu.speed = 7;
 
     while (!WindowShouldClose()) {
         BeginDrawing();
@@ -134,7 +146,17 @@ int main() {
 
         // Checking for collisions
         if (CheckCollisionCircleRec(Vector2{ball.x, ball.y}, ball.radius, Rectangle{player.x, player.y, player.width, player.height})) {
-            ball.speed_x *= -1;
+            if (ball.speed_x <= 20) {
+                if (ball.speed_x * -1 > 0) {
+                    ball.speed_x *= -1;
+                    ball.speed_x += 1;
+                } else {
+                    ball.speed_x *= -1;
+                    ball.speed_x -= 1;
+                }
+            } else {
+                ball.speed_x *= -1;
+            }
         }
         if (CheckCollisionCircleRec(Vector2{ball.x, ball.y}, ball.radius, Rectangle{cpu.x, cpu.y, cpu.width, cpu.height})) {
             ball.speed_x *= -1;
