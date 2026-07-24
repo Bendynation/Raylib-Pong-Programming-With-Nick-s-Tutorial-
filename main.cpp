@@ -27,7 +27,7 @@ class Ball {
         y += speed_y;
 
         if (y + radius >= GetScreenHeight() || y - radius <= 0) {
-            if (speed_y <= 20) {
+            if (speed_y <= 30) {
                 if (speed_y * -1 > 0) {
                     speed_y *= -1;
                     speed_y += 1;
@@ -128,13 +128,13 @@ int main() {
     player.height = 120;
     player.x = screenWidth - player.width - 10;
     player.y = screenHeight / 2 - player.height / 2;
-    player.speed = 7;
+    player.speed = 8;
 
     cpu.height = 120;
     cpu.width = 25;
     cpu.x = 10;
     cpu.y = screenHeight / 2 - cpu.height / 2;
-    cpu.speed = 7;
+    cpu.speed = 16;
 
     while (!WindowShouldClose()) {
         BeginDrawing();
@@ -146,7 +146,7 @@ int main() {
 
         // Checking for collisions
         if (CheckCollisionCircleRec(Vector2{ball.x, ball.y}, ball.radius, Rectangle{player.x, player.y, player.width, player.height})) {
-            if (ball.speed_x <= 20) {
+            if (ball.speed_x <= 30) {
                 if (ball.speed_x * -1 > 0) {
                     ball.speed_x *= -1;
                     ball.speed_x += 1;
